@@ -10,6 +10,7 @@ Installation
 Usage
 =====
 
+
 ```python
 from plugin_simple_seo.seo import set_seo_meta
 
