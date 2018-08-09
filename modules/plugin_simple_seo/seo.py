@@ -42,7 +42,7 @@ def set_tc(name, value):
 
 # -=- Initializers -=-
 
-def init_seo(type="website", card="summary", title=None, author=None, keywords=None, generator="Web2py Web Framework", image=None, description=None, site_name=None, locale=T.accepted_language or 'en', locale_alternate=[], twitter_username=None, label1=None, data1=None, label2=None, data2=None):
+def init_seo(type="website", card="summary", title=None, author=None, keywords=None, generator="Web2py Web Framework", image=None, description=None, site_name=None, locale=current.T.accepted_language or 'en', locale_alternate=[], twitter_username=None, label1=None, data1=None, label2=None, data2=None):
 	init_meta(title, description, keywords, author, generator)
 	init_og(type, title, image, description, site_name, locale, locale_alternate)
 	init_tc(card, title, twitter_username, label1, data1, label2, data2, image, description)
