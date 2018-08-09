@@ -65,6 +65,22 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	if username:
 		for name in ['site', 'creator']: set_tc(name, username)
 
+# -=- Set Specific Types -=-
+
+# XXX Add the following types:
+	# article: http://ogp.me/ns/article#
+	# book: http://ogp.me/ns/book#
+	# books: http://ogp.me/ns/books#
+	# business: http://ogp.me/ns/business#
+	# fitness: http://ogp.me/ns/fitness#
+	# game: http://ogp.me/ns/game#
+	# music: http://ogp.me/ns/music#
+	# place: http://ogp.me/ns/place#
+	# product: http://ogp.me/ns/product#
+	# profile: http://ogp.me/ns/profile#
+	# restaurant: http://ogp.me/ns/restaurant#
+	# video: http://ogp.me/ns/video#"
+
 # -=- Title -=-
 
 def set_title(title):
