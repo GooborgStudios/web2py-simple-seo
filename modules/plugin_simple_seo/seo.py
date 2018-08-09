@@ -31,12 +31,12 @@ def set_tc(name, value):
 	if isinstance(value, list):
 		for count in range(len(value)):
 			d = OrderedDict()
-			d['property'] = "twitter:%s" %name
+			d['name'] = "twitter:%s" %name
 			d['content'] = value[count]
 			current.response.meta['tc_%s_%d' %(name, count)] = d
 	else:
 		d = OrderedDict()
-		d['property'] = "twitter:%s" %name
+		d['name'] = "twitter:%s" %name
 		d['content'] = value
 		current.response.meta['tc_%s' %name] = d
 
