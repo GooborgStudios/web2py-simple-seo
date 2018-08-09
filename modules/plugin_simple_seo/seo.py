@@ -6,61 +6,97 @@ __author__ = ['cccaballero', 'vinyldarkscratch']
 from gluon import *
 from collections import OrderedDict
 
-def set_seo_meta(type="website", card="summary", title=None, author=None, keywords=None, generator="Web2py Web Framework", image=None, description=None, site_name=None, locale=None, locale_alternate={}, twitter_username=None, label1=None, data1=None, label2=None, data2=None):
-	set_meta(title, description, keywords, author, generator)
-	set_open_graph(type, title, image, description, site_name, locale, locale_alternate)
-	set_twitter_card(card, title, twitter_username, label1, data1, label2, data2, image, description)
+# -=- Initialize -=-
 
-def set_meta(title=None, description=None, keywords=None, author=None, generator="Web2py Web Framework"):
+def init_seo(type="website", card="summary", title=None, author=None, keywords=None, generator="Web2py Web Framework", image=None, description=None, site_name=None, locale=None, locale_alternate={}, twitter_username=None, label1=None, data1=None, label2=None, data2=None):
+	init_meta(title, description, keywords, author, generator)
+	init_og(type, title, image, description, site_name, locale, locale_alternate)
+	init_tc(card, title, twitter_username, label1, data1, label2, data2, image, description)
+
+def init_meta(title=None, description=None, keywords=None, author=None, generator="Web2py Web Framework"):
 	data = locals()
 	for name in ['title', 'description', 'keywords', 'author', 'generator']:
-		if data[name]: current.response.meta[name] = data[name]
+		if data[name]: set_meta(name, data[name])
 
-def set_open_graph(type="website", title=None, image=None, description=None, site_name=None, locale=None, locale_alternate={}):
+def init_og(type="website", title=None, image=None, description=None, site_name=None, locale=None, locale_alternate={}):
 	url = URL(args=current.request.args, host=True)
 	data = locals()
-	for name in ['type', 'title', 'url', 'description', 'site_name', 'locale']:
-		d = OrderedDict()
-		if data[name]:
-			d['property'] = "og:"+name
-			d['content'] = data[name]
-			current.response.meta['og_'+name] = d
-	if image: set_og_image(image)
+	for name in ['type', 'title', 'image', 'url', 'description', 'site_name', 'locale']:
+		if data[name]: set_og(name, data[name])
 
-def set_twitter_card(card="summary", title=None, username=None, label1=None, data1=None, label2=None, data2=None, image=None, description=None):
+def init_tc(card="summary", title=None, username=None, label1=None, data1=None, label2=None, data2=None, image=None, description=None):
 	data = locals()
-	for name in ['card', 'title', 'description', 'label1', 'data1', 'label2', 'data2']:
-		d = OrderedDict()
-		if data[name]:
-			d['property'] = "twitter:"+name
-			d['content'] = data[name]
-			current.response.meta['tc_'+name] = d
+	for name in ['card', 'title', 'label1', 'data1', 'label2', 'data2', 'image', 'description']:
+		if data[name]: set_tc(name, data[name])
 	if username:
-		for name in ['site', 'creator']:
-			d = OrderedDict()
-			d['property'] = "twitter:"+name
-			d['content'] = username
-			current.response.meta['tc_'+name] = d
-	if image: set_tc_image(image)
+		for name in ['site', 'creator']: set_tc(name, username)
 
-# Open Graph meta
-def set_og_image(image):
-	if isinstance(image, list):
-		for count in range(len(image)):
+# -=- Title -=-
+
+def set_title(title):
+	set_meta("title", title)
+	set_og("title", title)
+	set_tc("title", title)
+
+def title(new_title):
+	def wrapper(function):
+		def f(*args, **kwargs):
+			set_title(new_title)
+			
+			return function(*args, **kwargs)
+		return f
+	return wrapper
+
+# -=- Description -=-
+
+def set_description(description):
+	set_meta("description", description)
+	set_og("description", description)
+	set_tc("description", description)
+
+def description(new_description):
+	def wrapper(function):
+		def f(*args, **kwargs):
+			set_description(new_description)
+			
+			return function(*args, **kwargs)
+		return f
+	return wrapper
+
+# -=- Image -=-
+
+def set_image(image):
+	set_og("image", image)
+	set_tc("image", image)
+
+# web2py Meta
+def set_meta(name, value):
+	current.response[name] = value
+
+# Open Graph
+def set_og(name, value):
+	if isinstance(value, list):
+		for count in range(len(value)):
 			d = OrderedDict()
-			d['property'] = "og:image"
-			d['content'] = image[count]
-			current.response.meta['og_image_'+str(count)] = d
+			d['property'] = "og:%s" %name
+			d['content'] = value[count]
+			current.response.meta['og_%s_%d' %(name, count)] = d
 	else:
 		d = OrderedDict()
-		d['property'] = "og:image"
-		d['content'] = image
-		current.response.meta.og_image = d
+		d['property'] = "og:%s" %name
+		d['content'] = value
+		current.response.meta['og_%s' %name] = d
 
-# Twitter Card meta
-def set_tc_image(image):
-	if isinstance(image, list): image = image[0]
-	d = OrderedDict()
-	d['name'] = "twitter:image"
-	d['content'] = image
-	current.response.meta.tc_image = d
+# Twitter Card
+def set_tc(name, value):
+	if isinstance(value, list):
+		for count in range(len(value)):
+			d = OrderedDict()
+			d['property'] = "twitter:%s" %name
+			d['content'] = value[count]
+			current.response.meta['tc_%s_%d' %(name, count)] = d
+	else:
+		d = OrderedDict()
+		d['property'] = "twitter:%s" %name
+		d['content'] = value
+		current.response.meta['tc_%s' %name] = d
