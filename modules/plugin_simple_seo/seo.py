@@ -10,7 +10,7 @@ from collections import OrderedDict
 
 # web2py Meta
 def set_meta(name, value):
-	current.response[name] = value
+	current.response.meta[name] = value
 
 # Open Graph
 def set_og(name, value):
