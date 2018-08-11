@@ -83,8 +83,9 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	# restaurant: http://ogp.me/ns/restaurant#
 	# video: http://ogp.me/ns/video#
 
-# -=- Title -=-
+# -=- Specific Properties -=-
 
+# Title
 def set_title(title):
 	set_all_seo("title", title)
 
@@ -97,8 +98,7 @@ def title(new_title):
 		return f
 	return wrapper
 
-# -=- Description -=-
-
+# Description
 def set_description(description):
 	set_all_seo("description", description)
 
@@ -111,8 +111,16 @@ def description(new_description):
 		return f
 	return wrapper
 
-# -=- Image -=-
-
+# Image
 def set_image(image):
 	set_og("image", image)
 	set_tc("image", image)
+
+def image(new_image):
+	def wrapper(function):
+		def f(*args, **kwargs):
+			set_image(new_image)
+			
+			return function(*args, **kwargs)
+		return f
+	return wrapper
