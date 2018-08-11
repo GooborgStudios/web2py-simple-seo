@@ -79,7 +79,7 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	# product: http://ogp.me/ns/product#
 	# profile: http://ogp.me/ns/profile#
 	# restaurant: http://ogp.me/ns/restaurant#
-	# video: http://ogp.me/ns/video#"
+	# video: http://ogp.me/ns/video#
 
 # -=- Title -=-
 
