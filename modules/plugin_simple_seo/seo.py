@@ -46,7 +46,7 @@ def set_all_seo(name, value):
 
 def init_seo(type="website", card="summary", title=None, author=None, keywords=None, generator="Web2py Web Framework", image=None, description=None, site_name=None, locale=current.T.accepted_language or 'en', locale_alternate=[], twitter_username=None, label1=None, data1=None, label2=None, data2=None):
 	init_meta(title, description, keywords, author, generator)
-	init_og(type, title, image, description, site_name, locale, locale_alternate)
+	init_og(type, title, image, description, determiner, site_name, locale, locale_alternate)
 	init_tc(card, title, twitter_username, label1, data1, label2, data2, image, description)
 
 def init_meta(title=None, description=None, keywords=None, author=None, generator="Web2py Web Framework"):
@@ -54,10 +54,10 @@ def init_meta(title=None, description=None, keywords=None, author=None, generato
 	for name in ['title', 'description', 'keywords', 'author', 'generator']:
 		if data[name]: set_meta(name, data[name])
 
-def init_og(type="website", title=None, image=None, description=None, site_name=None, locale=None, locale_alternate=[]):
+def init_og(type="website", title=None, image=None, description=None, determiner="auto", site_name=None, locale=None, locale_alternate=[]):
 	url = URL(args=current.request.args, host=True)
 	data = locals()
-	for name in ['type', 'title', 'image', 'url', 'description', 'site_name', 'locale']:
+	for name in ['type', 'title', 'image', 'url', 'description', 'determiner', 'site_name', 'locale']:
 		if data[name]: set_og(name, data[name])
 
 def init_tc(card="summary", title=None, username=None, label1=None, data1=None, label2=None, data2=None, image=None, description=None):
