@@ -1,5 +1,5 @@
 # web2py Module: plugin_simple_seo
-# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Vinyl Darkscratch, 2018.
+# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Gooborg Studios, 2018.
 
 __author__ = ['cccaballero', 'vinyldarkscratch']
 
