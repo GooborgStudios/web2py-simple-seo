@@ -55,4 +55,31 @@ _Note that you must have `{{include 'web2py_ajax.html'}}` or `{{response.include
 
 Usage
 =====
-(To be written)
+There are two ways to set properties for each controller action.
+
+One is as a function decorator, which is our preference.  The function's names are simply the property name in lowercase, as such:
+
+```python
+# in controllers/default.py
+
+@title(T("Home"))
+@description(T("My beautiful home page"))
+def index():
+	return dict()
+```
+
+The other, for more dynamic pages, is to call the functions inside of the controller action, prepending `set_` to the function names stated above:
+
+```python
+#in controllers/default.py
+
+def profile():
+	username = "foobar"
+	userpic = URL('static', 'images', args=['defaultprofilepic.png'])
+	
+	set_title(T("%s's Profile") %username)
+	set_description(T("Profile for %s") %username)
+	set_image(userpic)
+	
+	return locals()
+```
