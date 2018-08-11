@@ -8,37 +8,39 @@ from collections import OrderedDict
 
 # -=- Basic Set Functions -=-
 
+def set_seo_tag(mame, value):
+	if isinstance(value, dict):
+		for k, v in value.iteritems():
+			if k == "main": set_seo_tag(name, v)
+			else: set_seo_tag("%s:%s" %(name, k), v)
+	if isinstance(value, list):
+		for i in range(len(value)):
+			d = OrderedDict()
+			d['property'] = "%s" %name
+			d['content'] = value[count]
+			current.response.meta['%s_%d' %(name.replace(":", "_"), i)] = d
+	else:
+		d = OrderedDict()
+		d['property'] = "%s" %name
+		d['content'] = value
+		current.response.meta['%s' %name.replace(":", "_")] = d
+
 # web2py Meta
 def set_meta(name, value):
-	current.response.meta[name] = value
+	set_seo_tag(name, value)
 
 # Open Graph
 def set_og(name, value):
-	if isinstance(value, list):
-		for count in range(len(value)):
-			d = OrderedDict()
-			d['property'] = "og:%s" %name
-			d['content'] = value[count]
-			current.response.meta['og_%s_%d' %(name, count)] = d
-	else:
-		d = OrderedDict()
-		d['property'] = "og:%s" %name
-		d['content'] = value
-		current.response.meta['og_%s' %name] = d
+	set_seo_tag("og:%s" %name, value)
 
 # Twitter Card
 def set_tc(name, value):
-	if isinstance(value, list):
-		for count in range(len(value)):
-			d = OrderedDict()
-			d['name'] = "twitter:%s" %name
-			d['content'] = value[count]
-			current.response.meta['tc_%s_%d' %(name, count)] = d
-	else:
-		d = OrderedDict()
-		d['name'] = "twitter:%s" %name
-		d['content'] = value
-		current.response.meta['tc_%s' %name] = d
+	set_seo_tag("tc:%s" %name, value)
+
+def set_all_seo(name, value):
+	set_meta(name, value)
+	set_og(name, value)
+	set_tc(name, value)
 
 # -=- Initializers -=-
 
@@ -84,9 +86,7 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 # -=- Title -=-
 
 def set_title(title):
-	set_meta("title", title)
-	set_og("title", title)
-	set_tc("title", title)
+	set_all_seo("title", title)
 
 def title(new_title):
 	def wrapper(function):
@@ -100,9 +100,7 @@ def title(new_title):
 # -=- Description -=-
 
 def set_description(description):
-	set_meta("description", description)
-	set_og("description", description)
-	set_tc("description", description)
+	set_all_seo("description", description)
 
 def description(new_description):
 	def wrapper(function):
