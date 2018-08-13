@@ -69,10 +69,9 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	if username:
 		for name in ['site', 'creator']: set_tc(name, username)
 
-# -=- Set Specific Types -=-
+# -=- Specific Types -=-
 
 # XXX Add the following types:
-	# article: http://ogp.me/ns/article#
 	# book: http://ogp.me/ns/book#
 	# books: http://ogp.me/ns/books#
 	# business: http://ogp.me/ns/business#
@@ -85,6 +84,28 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	# restaurant: http://ogp.me/ns/restaurant#
 	# video: http://ogp.me/ns/video#
 
+# https://developers.facebook.com/docs/reference/opengraph/#object-type
+
+# Article
+def set_article(author=None, content_tier="free", expiration_time=None, modified_time=None, published_time=None, publisher=None, section=None, tags=[]):
+	set_og("type", "article")
+	set_og("article:author", author)
+	set_og("article:expiration_time", expiration_time)
+	set_og("article:modified_time", modified_time)
+	set_og("article:published_time", published_time)
+	set_og("article:publisher", publisher)
+	set_og("article:section", section)
+	set_og("article:tags", tags)
+	if content_tier in ['free', 'locked', 'metered']: set_og("article:content_tier", content_tier)
+
+def article(first_name=None, last_name=None, username=None, gender=None):
+	def wrapper(function):
+		def f(*args, **kwargs):
+			set_article(author=None, content_tier="free", expiration_time=None, modified_time=None, published_time=None, publisher=None, section=None, tags=[])
+			
+			return function(*args, **kwargs)
+		return f
+	return wrapper
 # -=- Specific Properties -=-
 
 # Title
