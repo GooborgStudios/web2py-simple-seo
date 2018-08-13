@@ -9,6 +9,8 @@ from collections import OrderedDict
 # -=- Basic Set Functions -=-
 
 def set_seo_tag(mame, value):
+	if value is None:
+		return
 	if isinstance(value, dict):
 		for k, v in value.iteritems():
 			if k == "main": set_seo_tag(name, v)
