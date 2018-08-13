@@ -80,7 +80,6 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 	# music: http://ogp.me/ns/music#
 	# place: http://ogp.me/ns/place#
 	# product: http://ogp.me/ns/product#
-	# profile: http://ogp.me/ns/profile#
 	# restaurant: http://ogp.me/ns/restaurant#
 	# video: http://ogp.me/ns/video#
 
@@ -106,6 +105,24 @@ def article(first_name=None, last_name=None, username=None, gender=None):
 			return function(*args, **kwargs)
 		return f
 	return wrapper
+
+# Profile
+def set_profile(first_name=None, last_name=None, username=None, gender=None):
+	set_og("type", "profile")
+	set_og("profile:first_name", first_name)
+	set_og("profile:last_name", last_name)
+	set_og("profile:username", username)
+	if gender in ['male', 'female']: set_all_seo("profile:gender", gender)
+
+def profile(first_name=None, last_name=None, username=None, gender=None):
+	def wrapper(function):
+		def f(*args, **kwargs):
+			set_profile(first_name, last_name, username, gender)
+			
+			return function(*args, **kwargs)
+		return f
+	return wrapper
+
 # -=- Specific Properties -=-
 
 # Title
