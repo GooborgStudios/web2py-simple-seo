@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 # -=- Basic Set Functions -=-
 
-def set_seo_tag(mame, value):
+def set_seo_tag(name, value):
 	if value is None:
 		return
 	if isinstance(value, dict):
