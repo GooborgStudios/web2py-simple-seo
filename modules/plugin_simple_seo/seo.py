@@ -30,6 +30,7 @@ def set_seo_tag(name, value):
 # web2py Meta
 def set_meta(name, value):
 	set_seo_tag(name, value)
+	current.response[name] = value
 
 # Open Graph
 def set_og(name, value):
