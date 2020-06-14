@@ -1,7 +1,7 @@
 # web2py Module: plugin_simple_seo
-# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Gooborg Studios, 2018.
+# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Vinyl Darkscratch (Gooborg Studios), 2018-2020.
 
-__author__ = ['cccaballero', 'vinyldarkscratch']
+__author__ = ['vinyldarkscratch', 'cccaballero']
 
 from gluon import *
 from collections import OrderedDict
@@ -12,18 +12,21 @@ def set_seo_tag(name, value):
 	if value is None:
 		return
 	if isinstance(value, dict):
-		for k, v in value.iteritems():
-			if k == "main": set_seo_tag(name, v)
+		for k, v in value.items():
+			if k == "main":
+				set_seo_tag(name, v)
 			else: set_seo_tag("%s:%s" %(name, k), v)
 	if isinstance(value, list):
 		for i in range(len(value)):
 			d = OrderedDict()
 			d['property'] = "%s" %name
-			d['content'] = value[count]
+			d['name'] = "%s" %name
+			d['content'] = value[len(value)]
 			current.response.meta['%s_%d' %(name.replace(":", "_"), i)] = d
 	else:
 		d = OrderedDict()
 		d['property'] = "%s" %name
+		d['name'] = "%s" %name
 		d['content'] = value
 		current.response.meta['%s' %name.replace(":", "_")] = d
 
@@ -102,7 +105,7 @@ def article(first_name=None, last_name=None, username=None, gender=None):
 	def wrapper(function):
 		def f(*args, **kwargs):
 			set_article(author=None, content_tier="free", expiration_time=None, modified_time=None, published_time=None, publisher=None, section=None, tags=[])
-			
+
 			return function(*args, **kwargs)
 		return f
 	return wrapper
@@ -119,7 +122,7 @@ def profile(first_name=None, last_name=None, username=None, gender=None):
 	def wrapper(function):
 		def f(*args, **kwargs):
 			set_profile(first_name, last_name, username, gender)
-			
+
 			return function(*args, **kwargs)
 		return f
 	return wrapper
@@ -134,7 +137,7 @@ def title(new_title):
 	def wrapper(function):
 		def f(*args, **kwargs):
 			set_title(new_title)
-			
+
 			return function(*args, **kwargs)
 		return f
 	return wrapper
@@ -147,7 +150,7 @@ def description(new_description):
 	def wrapper(function):
 		def f(*args, **kwargs):
 			set_description(new_description)
-			
+
 			return function(*args, **kwargs)
 		return f
 	return wrapper
@@ -161,7 +164,7 @@ def image(new_image):
 	def wrapper(function):
 		def f(*args, **kwargs):
 			set_image(new_image)
-			
+
 			return function(*args, **kwargs)
 		return f
 	return wrapper

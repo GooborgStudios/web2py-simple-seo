@@ -71,7 +71,7 @@ def index():
 The other, for more dynamic pages, is to call the functions inside of the controller action, prepending `set_` to the function names stated above:
 
 ```python
-#in controllers/default.py
+# in controllers/default.py
 
 def profile():
 	username = "foobar"
