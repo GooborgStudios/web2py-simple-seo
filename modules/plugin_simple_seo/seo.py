@@ -1,7 +1,7 @@
 # web2py Module: plugin_simple_seo
-# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Vinyl Darkscratch (Gooborg Studios), 2018-2020.
+# Original version (c) cccaballero (https://github.com/daxslab/web2py-simple-seo), version 2.0 (c) Vinyl Da.i'gyu-Kazotetsu (Gooborg Studios), 2018-2020.
 
-__author__ = ['vinyldarkscratch', 'cccaballero']
+__author__ = ['queengooborg', 'cccaballero']
 
 from gluon import *
 from collections import OrderedDict

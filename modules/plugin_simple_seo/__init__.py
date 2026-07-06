@@ -1,3 +1,3 @@
-__author__ = ['vinyldarkscratch', 'cccaballero']
+__author__ = ['queengooborg', 'cccaballero']
 
 from .seo import *
