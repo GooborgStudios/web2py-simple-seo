@@ -96,18 +96,10 @@ def init_tc(card="summary", title=None, username=None, label1=None, data1=None, 
 # -=- Specific Types -=-
 
 # XXX Add the following types:
-	# book: http://ogp.me/ns/book#
-	# books: http://ogp.me/ns/books#
-	# business: http://ogp.me/ns/business#
-	# fitness: http://ogp.me/ns/fitness#
-	# game: http://ogp.me/ns/game#
-	# music: http://ogp.me/ns/music#
-	# place: http://ogp.me/ns/place#
-	# product: http://ogp.me/ns/product#
-	# restaurant: http://ogp.me/ns/restaurant#
-	# video: http://ogp.me/ns/video#
-
-# https://developers.facebook.com/docs/reference/opengraph/#object-type
+	# music: http://ogp.me/#type_music
+	# video: http://ogp.me/#type_video
+	# book: http://ogp.me/#type_book
+	# payment: http://ogp.me/#type_payment
 
 # Article
 def set_article(author=None, content_tier="free", expiration_time=None, modified_time=None, published_time=None, publisher=None, section=None, tags=()):
